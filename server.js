@@ -10,6 +10,10 @@ import {fileURLToPath} from 'url';
 import { lookup } from "dns";
 const _dirname = dirname(fileURLToPath(import.meta.url));
 
+// Import Router
+import indexRouter from './app/routes/index.routes.server.js' 
+
+
 // intanciate app-server
 const app = express();
 
@@ -28,28 +32,8 @@ app.use(session({
     resave: false
 }))
 
-// custom middleware
-function helloPlein(req, res, next){
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello from NodeJS Application');
-}
-
-// custom middleware
-function helloHtml(req, res, next){
-    res.setHeader('Content-Type', 'text/html');
-    res.end('<h1>Hello from NodeJS Application as html</h1>');
-};
-
-// custom middleware
-function helloJson(req, res, next){
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({"message": "Hello from NodeJS Application as json"}))
-};
-
-// add middleware to connect application
-app.use('/json', helloJson);
-app.use('/html', helloHtml);
-app.use('/', helloPlein);
+// use Routes 
+app.use('/', indexRouter);
 
 //run app
 app.listen(3000);
