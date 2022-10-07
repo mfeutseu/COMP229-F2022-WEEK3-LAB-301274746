@@ -6,18 +6,22 @@
 //     res.end('Hello from NodeJS Application');
 // }
 
-export function helloWorld(req, res, next){
-    res.render('index', {title: 'Home'});
+export function displayHomePage(req, res, next){
+    res.render('index', {title: 'Home', page:'home'});
 }
 
-// // custom middleware
-// function helloHtml(req, res, next){
-//     res.setHeader('Content-Type', 'text/html');
-//     res.end('<h1>Hello from NodeJS Application as html</h1>');
-// };
+export function displayAboutPage(req, res, next){
+    res.render('index', {title: 'About', page: 'about'});
+}
 
-// // custom middleware
-// function helloJson(req, res, next){
-//     res.setHeader('Content-Type', 'application/json');
-//     res.end(JSON.stringify({"message": "Hello from NodeJS Application as json"}))
-// };
+export function displayProjectsPage(req, res, next){
+    res.render('index', {title: 'Projects', page: 'projects'});
+}
+
+export function displayServicesPage(req, res, next){
+    res.render('index', {title: 'Services', page: 'services'});
+}
+
+export function displayContactPage(req, res, next){
+    res.render('index', {title: 'Contact', page: 'contact'});
+}
