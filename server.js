@@ -18,7 +18,7 @@ import indexRouter from './app/routes/index.routes.server.js'
 const app = express();
 
 // setup viewEngine EJS
-app.set('views', path.join(_dirname, '/views'));
+app.set('views', path.join(_dirname, '/app/views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
