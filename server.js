@@ -1,9 +1,16 @@
+// Third Party Modules
+import express from "express";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import session from "express-session";
 
-// import third-party nodejs module
-const connect = require('connect');
+// ES Modules fix for _dirname
+import path, {dirname} from 'path';
+import {fileURLToPath} from 'url';
+const _dirname = dirname(fileURLToPath(import.meta.url));
 
 // intanciate app-server
-const app = connect();
+const app = express();
 
 // custom middleware
 function helloPlein(req, res, next){
