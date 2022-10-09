@@ -1,41 +1,72 @@
-// Third Party Modules
-import express from "express";
-import cookieParser from "cookie-parser";
-import logger from "morgan";
-import session from "express-session";
+// import debug from 'debug';
+// debug('comp-229');
+// import http from 'http';
 
-// ES Modules fix for _dirname
-import path, {dirname} from 'path';
-import {fileURLToPath} from 'url';
-import { lookup } from "dns";
-const _dirname = dirname(fileURLToPath(import.meta.url));
+// import app from './app/app.js';
 
-// Import Router
-import indexRouter from './app/routes/index.routes.server.js' 
+// const PORT = process.env.PORT || 3000;
+// app.set('port', PORT);
+
+// const server = http.createServer(app);
+
+// server.listen(PORT);
 
 
-// intanciate app-server
-const app = express();
+import debug from 'debug';
+debug('comp-229');
+import http from 'http';
 
-// setup viewEngine EJS
-app.set('views', path.join(_dirname, '/app/views'));
-app.set('view engine', 'ejs');
+import app from './app/app.js';
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({extend: false}));
-app.use(cookieParser());
-app.use(express.static(path.join(_dirname, '/public')));
-app.use(session({
-    secret: 'MySecret',
-    saveUninitialized: false,
-    resave: false
-}))
+const PORT = normalizePort(process.env.PORT || 3000);
+app.set('port', PORT);
 
-// use Routes 
-app.use('/', indexRouter);
+const server = http.createServer(app);
 
-//run app
-app.listen(3000);
+server.listen(PORT);
+server.on('error', onError);
+server.on('listening', onListening);
 
-console.log('Server running at http://localhost:3000');
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+    if (isNaN(port)) {
+        return val;
+    }
+
+    if (port >= 0) {
+        return port;
+    }
+
+    return false;
+}
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    let bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+function onListening() 
+{
+  let addr = server.address();
+  let bind = 'pipe ' + addr;
+  debug('Listening on ' + bind);
+}
